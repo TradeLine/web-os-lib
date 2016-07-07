@@ -1,0 +1,67 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+buildscript {
+    ext.kotlin_version = '1.0.3'
+
+    repositories {
+        mavenCentral()
+
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: "kotlin2js"
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId "org.tlsys"
+            artifactId 'tl-webos-lib'
+            version "1.0"
+            from components.java
+        }
+    }
+}
+
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-js-library:$kotlin_version"
+}
+
+def outDir = "${buildDir}/js"
+
+compileKotlin2Js.kotlinOptions.sourceMap = true
+compileKotlin2Js.kotlinOptions.outputFile = "${outDir}/${project.name}.js"
+compileKotlin2Js.kotlinOptions.suppressWarnings = true
+compileKotlin2Js.kotlinOptions.verbose = true
+
+
+jar {
+
+    dependsOn compileKotlin2Js
+
+    from sourceSets.main.allSource
+    include "**/*.kt"
+
+    includeEmptyDirs = false
+
+    from outDir
+    include "**/*.js"
+    include "**/*.map"
+
+    manifest {
+        attributes(
+                "Specification-Title": "TradeLine WebOS-Library",
+                "Kotlin-JS-Module-Name": project.name
+        )
+    }
+}
