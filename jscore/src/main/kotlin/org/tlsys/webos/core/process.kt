@@ -14,8 +14,14 @@ object ProcessManager {
 
 abstract class Process {
     protected abstract fun stop()
+
+    private var _running: Boolean = true
+    val running: Boolean
+        get() = _running
+
     fun close() {
         stop()
         ProcessManager.process -= this
+        _running = false
     }
 }

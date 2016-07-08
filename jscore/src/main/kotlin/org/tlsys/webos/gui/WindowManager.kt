@@ -1,6 +1,7 @@
 package org.tlsys.webos.gui
 
 import org.tlsys.webos.core.Process
+import org.w3c.dom.HTMLElement
 
 interface WindowManager {
     val applications: List<WindowApplication>
@@ -20,6 +21,7 @@ interface Window {
     var y: Int
     var visible: Boolean
     var border: Boolean
+    val content: HTMLElement
 
     fun onOpen() {
     }
@@ -36,11 +38,17 @@ interface WindowApplication {
     val windows: List<Window>
 }
 
-interface Component {
-
+interface Controller {
+    val dom: HTMLElement
 }
 
-interface ComponentTree {
-    val childs: List<Component>
-
+fun HTMLElement.useControl(controller: Controller) {
+    val self = this
+    js("self.CONTROL=controller")
 }
+
+val HTMLElement.con: Controller?
+    get() {
+        val self = this
+        return js("self.CONTROL")
+    }
