@@ -2,7 +2,7 @@ package org.tlsys.webos.core
 
 import java.util.*
 
-class Service<P : Process>(val name: String, val description: String, val checkState: (P) -> Boolean, val creator: ((P) -> Unit) -> Unit) {
+class Service<P : Process>(val name: String, val description: String, val creator: ((P) -> Unit) -> Unit) {
     var _state: Boolean = false
     val state: Boolean
         get() = _state
