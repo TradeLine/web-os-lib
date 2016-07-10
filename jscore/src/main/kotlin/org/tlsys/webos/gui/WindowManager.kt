@@ -4,38 +4,33 @@ import org.tlsys.webos.core.Process
 import org.w3c.dom.HTMLElement
 
 interface WindowManager {
-    val applications: List<WindowApplication>
+    val applications: List<GUIApplication>
 }
 
-interface WindowTitle {
-    var caption: String
-    var visible: Boolean
-}
+abstract class GUIApplication {
+    abstract val manager: WindowManager
+    abstract val windows: List<Window>
+    protected abstract val _windows: MutableList<Window>
 
-interface Window {
-    val application: WindowApplication
-    val title: WindowTitle
-    var width: Int
-    var height: Int
-    var x: Int
-    var y: Int
-    var visible: Boolean
-    var border: Boolean
-    val content: HTMLElement
-
-    fun onOpen() {
+    internal fun onNewWindow(window: GUIWindow) {
+        _windows += window
     }
 
-    fun onClose() {
-    }
-
-    fun Resize() {
+    internal fun onCloseWindow(window: GUIWindow) {
+        _windows -= window
     }
 }
 
-interface WindowApplication {
-    val manager: WindowManager
-    val windows: List<Window>
+abstract class GUIWindow(val application: GUIApplication) : Window() {
+
+    override fun created(controller: WindowController) {
+        super.created(controller)
+        application.onNewWindow(this)
+    }
+
+    override fun onClosed() {
+        application.onCloseWindow(this)
+    }
 }
 
 interface Controller {
