@@ -2,29 +2,44 @@ package org.tlsys.webos.gui
 
 import org.tlsys.webos.core.Process
 import org.w3c.dom.HTMLElement
-
+/*
 interface WindowManager {
-    val applications: List<GUIApplication>
+    val applications: List<GUIApplication<*>>
+    fun <T : GUIApplicationController> createApplication(controller: T): GUIApplication<T>
 }
 
-abstract class GUIApplication {
-    abstract val manager: WindowManager
-    abstract val windows: List<Window>
-    protected abstract val _windows: MutableList<Window>
+abstract class GUIApplicationController {
 
-    internal fun onNewWindow(window: GUIWindow) {
+}
+
+
+abstract class GUIApplication<T : GUIApplicationController> {
+    abstract val manager: WindowManager
+    abstract val windows: List<Window<WindowController>>
+    protected abstract val _windows: MutableList<Window<WindowController>>
+
+    internal fun onNewWindow(window: GUIWindow<*, T>) {
+        window as GUIWindow<WindowController, T>
         _windows += window
     }
 
-    internal fun onCloseWindow(window: GUIWindow) {
+    internal fun onCloseWindow(window: GUIWindow<*, T>) {
+        window as GUIWindow<WindowController, T>
         _windows -= window
     }
+
+    abstract fun <C : WindowController> createWindow(controller: C): GUIWindow<C, T>
 }
 
-abstract class GUIWindow(val application: GUIApplication) : Window() {
 
-    override fun created(controller: WindowController) {
-        super.created(controller)
+abstract class GUIWindow<C : WindowController, T : GUIApplicationController>(val application: GUIApplication<T>) : Window<C>() {
+    private lateinit var _controller: C
+    val controller: C get() = _controller!!
+
+    open protected fun created(controller: C) {
+        _controller = controller
+        controller._window = this
+        controller.onCreated()
         application.onNewWindow(this)
     }
 
@@ -32,6 +47,26 @@ abstract class GUIWindow(val application: GUIApplication) : Window() {
         application.onCloseWindow(this)
     }
 }
+
+//=============================//
+
+abstract class WindowController() {
+    lateinit var _window: Window<*>
+    val window: Window<*> get() = _window!!
+    open fun onRezie() {
+    }
+
+    open fun closeRequest(): Boolean {
+        return true
+    }
+
+    open fun onCreated() {
+    }
+}
+
+//=============================//
+
+            */
 
 interface Controller {
     val dom: HTMLElement
