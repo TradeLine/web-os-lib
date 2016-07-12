@@ -2,7 +2,7 @@ package org.tlsys.webos.gui
 
 import org.w3c.dom.HTMLElement
 
-interface GUIWindow<W : GUIWindowController, A : GUIApplicationController> {
+interface GUIWindow<W : GUIWindowController, A : GUIApplicationController>:Controller {
     val application: GUIApplication<A>
     val controller: W
     var title: String
@@ -23,8 +23,11 @@ interface GUIWindow<W : GUIWindowController, A : GUIApplicationController> {
         this.width = width
         this.height = height
     }
+
+    fun close():Boolean
 }
 
 interface GUIWindowController {
     val window: GUIWindow<GUIWindowController, GUIApplicationController>
+    fun closeRequest():Boolean=true
 }
