@@ -9,5 +9,6 @@ interface Menu : MenuItem {
 }
 
 interface MenuItem {
-    val parent: Menu
+    val parent: Menu?
+    val manager:GUIManager
 }
