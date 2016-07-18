@@ -1,6 +1,9 @@
 package org.tlsys.webos.gui
 
-interface Menu : MenuItem {
+interface Menu {
+    val parent: Menu?
+    val manager:GUIManager
+
     val items: List<MenuItem>
     fun createItem(click: (MenuItem) -> Boolean): MenuItem
     fun createSubMenu(creator: (Menu) -> Unit)
@@ -9,6 +12,9 @@ interface Menu : MenuItem {
 }
 
 interface MenuItem {
-    val parent: Menu?
-    val manager:GUIManager
+
+}
+
+interface SubMenuMenuItem {
+
 }
