@@ -5,8 +5,9 @@ import java.util.*
 object ProcessManager {
     val process = ArrayList<Process>()
 
-    fun run(application: Application): Process {
-        val p = application.start()
+    fun run(application: Application, vararg args:String): Process? {
+        val p = application.start(args as Array<String>)
+        if (p != null)
         process += p
         return p
     }

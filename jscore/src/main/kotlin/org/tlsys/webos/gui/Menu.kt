@@ -1,20 +1,31 @@
 package org.tlsys.webos.gui
 
 interface Menu {
+    var x:Int
+    var y:Int
+    val width:Int
+    val height:Int
+
     val parent: Menu?
-    val manager:GUIManager
+    val manager: GUIManager
 
     val items: List<MenuItem>
-    fun createItem(click: (MenuItem) -> Boolean): MenuItem
-    fun createSubMenu(creator: (Menu) -> Unit)
+    fun createTextItem(creator: (TextMenuItem) -> Unit): TextMenuItem
+    fun createSubMenu(creator: (SubMenuMenuItem) -> Unit): SubMenuMenuItem
     fun remove(item: MenuItem)
     fun remove(index: Int)
+
+    fun close()
 }
 
 interface MenuItem {
-
+    var text: String
 }
 
-interface SubMenuMenuItem {
+interface TextMenuItem:MenuItem {
+    var clickListener:((TextMenuItem)->Boolean)?
+}
+
+interface SubMenuMenuItem : Menu, MenuItem {
 
 }
