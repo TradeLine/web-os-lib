@@ -7,4 +7,7 @@ interface GUIManager {
     val screenWidth: Int
     val screenHeight: Int
     fun createMenu(x: Int, y: Int, creator: (Menu) -> Unit): Menu
+
+    fun <T : PlaneController> createPlaneH(creator: (GlobalPlaneHorisantal<*>) -> T): GlobalPlaneHorisantal<T>
+    fun destroyPlane(plane: GlobalPlane<*>)
 }
