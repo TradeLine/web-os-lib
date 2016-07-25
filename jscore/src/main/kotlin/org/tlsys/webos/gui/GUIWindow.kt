@@ -2,7 +2,7 @@ package org.tlsys.webos.gui
 
 import org.w3c.dom.HTMLElement
 
-interface GUIWindow<W : GUIWindowController, A : GUIApplicationController>:Controller {
+interface GUIWindow<W : GUIWindowController, A : GUIApplicationController> : Controller {
     val application: GUIApplication<A>
     val controller: W
     var title: String
@@ -12,7 +12,7 @@ interface GUIWindow<W : GUIWindowController, A : GUIApplicationController>:Contr
     var y: Int
     var width: Int
     var height: Int
-    var visible:Boolean
+    var visible: Boolean
 
     fun position(x: Int, y: Int) {
         this.x = x
@@ -24,10 +24,14 @@ interface GUIWindow<W : GUIWindowController, A : GUIApplicationController>:Contr
         this.height = height
     }
 
-    fun close():Boolean
+    fun close(): Boolean
+
+    var closeVisibleButton:Boolean
 }
 
 interface GUIWindowController {
     val window: GUIWindow<GUIWindowController, GUIApplicationController>
-    fun closeRequest():Boolean=true
+    fun closeRequest(): Boolean = true
+    fun onShowed() {
+    }
 }
