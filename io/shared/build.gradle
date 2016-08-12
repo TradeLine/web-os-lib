@@ -35,7 +35,7 @@ dependencies {
 
 def out = "${buildDir}/js"
 compileKotlin2Js.kotlinOptions.sourceMap = true
-compileKotlin2Js.kotlinOptions.outputFile = "${out}/shared.js"
+compileKotlin2Js.kotlinOptions.outputFile = "${out}/io-shared.js"
 compileKotlin2Js.kotlinOptions.suppressWarnings = true
 compileKotlin2Js.kotlinOptions.verbose = true
 compileKotlin2Js.kotlinOptions.metaInfo = true
