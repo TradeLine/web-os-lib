@@ -1,2 +1,6 @@
 rootProject.name = 'web-os-lib'
 include ":jscore";
+
+include ":io:client"
+include ":io:server"
+include ":io:shared"

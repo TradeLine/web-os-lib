@@ -1,68 +1,67 @@
-apply plugin: 'java'
-apply plugin: 'maven-publish'
-
 buildscript {
     ext.kotlin_version = '1.0.3'
 
     repositories {
         mavenCentral()
-
     }
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
-
-apply plugin: "kotlin2js"
-
 repositories {
     mavenCentral()
     mavenLocal()
 }
+apply plugin: "kotlin2js"
+apply plugin: "kotlin"
+apply plugin: 'maven-publish'
 
 publishing {
     publications {
         maven(MavenPublication) {
             groupId "org.tlsys"
-            artifactId 'tl-webos-lib'
+            artifactId 'tl-io-shared'
             version "1.0"
             from components.java
         }
     }
 }
 
-
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-js-library:$kotlin_version"
+
 }
 
-def outDir = "${buildDir}/js"
-
+def out = "${buildDir}/js"
 compileKotlin2Js.kotlinOptions.sourceMap = true
-compileKotlin2Js.kotlinOptions.outputFile = "${outDir}/${project.name}.js"
+compileKotlin2Js.kotlinOptions.outputFile = "${out}/shared.js"
 compileKotlin2Js.kotlinOptions.suppressWarnings = true
 compileKotlin2Js.kotlinOptions.verbose = true
 compileKotlin2Js.kotlinOptions.metaInfo = true
 
+compileKotlin {
+    dependsOn compileKotlin2Js
+}
 
 jar {
 
-    dependsOn compileKotlin2Js
+    from "${project.buildDir}/classes/main"
+    include "**/*.class"
 
     from sourceSets.main.allSource
     include "**/*.kt"
 
     includeEmptyDirs = false
 
-    from outDir
+    from out
     include "**/*.js"
     include "**/*.map"
 
     manifest {
         attributes(
-                "Specification-Title": "TradeLine WebOS-Library",
-                "Kotlin-JS-Module-Name": project.name
+                "Specification-Title": "Kotlin JavaScript Lib",
+                "Kotlin-JS-Module-Name": "io-shared"
         )
     }
 }
