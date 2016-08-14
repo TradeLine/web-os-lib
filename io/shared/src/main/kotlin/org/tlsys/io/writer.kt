@@ -34,6 +34,12 @@ interface Writer {
             writeObject(it)
     }
 
+    fun <T : DTO> writeArray2(list: Array<T>) {
+        writeInt(list.size)
+        for (it in list)
+            writeObject(it)
+    }
+
     fun writeString(str: String) {
         writeInt(str.length)
         for (i in 0..str.length - 1)

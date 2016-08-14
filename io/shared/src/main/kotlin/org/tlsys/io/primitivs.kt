@@ -2,7 +2,7 @@ package org.tlsys.io
 
 import java.util.*
 
-private val package_name="org.tlsys.io"
+private val package_name = "org.tlsys.io"
 
 class StringDTO(var value: String) : DTO {
 
@@ -123,7 +123,7 @@ class LongDTO(var value: Long) : DTO {
     override val DTO_ID: Int
         get() = FACTORE.DTO_ID
 
-    override fun toString(): String{
+    override fun toString(): String {
         return "LongDTO(value=$value)"
     }
 
@@ -169,7 +169,7 @@ class DoubleDTO(var value: Double) : DTO {
 
 }
 
-class ListDTO<T : DTO>(val values:List<DTO?>) : DTO {
+class ListDTO<T : DTO>(val values: List<DTO?>) : DTO {
     companion object FACTORY : DTOFactory {
         override fun read(reader: Reader): DTO = ListDTO<DTO>(reader.readList<DTO>())
 
@@ -195,4 +195,28 @@ fun reg_dto_primitives() {
     Objects.regFactory(LongDTO.DTO_ID, LongDTO)
     Objects.regFactory(FloatDTO.DTO_ID, FloatDTO)
     Objects.regFactory(DoubleDTO.DTO_ID, DoubleDTO)
+}
+
+fun Array<Long>.toDTO() = Array(size) {
+    LongDTO(this[it])
+}
+
+fun Array<String>.toDTO() = Array(size) {
+    StringDTO(this[it])
+}
+
+fun Array<Int>.toDTO() = Array(size) {
+    IntDTO(this[it])
+}
+
+fun Array<LongDTO>.fromDTO() = Array(size) {
+    this[it].value
+}
+
+fun Array<StringDTO>.fromDTO() = Array(size) {
+    this[it].value
+}
+
+fun Array<IntDTO>.fromDTO() = Array(size) {
+    this[it].value
 }

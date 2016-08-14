@@ -43,7 +43,7 @@ compileKotlin2Js.kotlinOptions.sourceMap = true
 compileKotlin2Js.kotlinOptions.outputFile = "${outDir}/${project.name}.js"
 compileKotlin2Js.kotlinOptions.suppressWarnings = true
 compileKotlin2Js.kotlinOptions.verbose = true
-compileKotlin2Js.kotlinOptions.metaInfo = true
+//bcompileKotlin2Js.kotlinOptions.metaInfo = true
 
 
 jar {
