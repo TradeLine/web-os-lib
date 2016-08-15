@@ -18,7 +18,9 @@ interface Writer {
         } else {
             writeBoolean(true)
             writeInt(obj.DTO_ID)
-            Objects.getFactoryById(obj.DTO_ID)!!.write(obj, this)
+            val factory = Objects.getFactoryById(obj.DTO_ID)?:throw RuntimeException("Can't find factory for ${obj.DTO_ID}")
+
+            factory.write(obj, this)
         }
     }
 

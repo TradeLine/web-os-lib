@@ -184,19 +184,19 @@ class ListDTO<T : DTO>(val values: List<DTO?>) : DTO {
         get() = FACTORY.DTO_ID
 }
 
-
-fun reg_dto_primitives() {
-    Objects.regFactory(StringDTO.DTO_ID, StringDTO)
-    Objects.regFactory(BooleanDTO.DTO_ID, BooleanDTO)
-    Objects.regFactory(CharDTO.DTO_ID, CharDTO)
-    Objects.regFactory(ByteDTO.DTO_ID, ByteDTO)
-    Objects.regFactory(ShortDTO.DTO_ID, ShortDTO)
-    Objects.regFactory(IntDTO.DTO_ID, IntDTO)
-    Objects.regFactory(LongDTO.DTO_ID, LongDTO)
-    Objects.regFactory(FloatDTO.DTO_ID, FloatDTO)
-    Objects.regFactory(DoubleDTO.DTO_ID, DoubleDTO)
+object OBJECT_PRIMITIVS {
+    fun reg() {
+        Objects.regFactory(StringDTO.DTO_ID, StringDTO)
+        Objects.regFactory(BooleanDTO.DTO_ID, BooleanDTO)
+        Objects.regFactory(CharDTO.DTO_ID, CharDTO)
+        Objects.regFactory(ByteDTO.DTO_ID, ByteDTO)
+        Objects.regFactory(ShortDTO.DTO_ID, ShortDTO)
+        Objects.regFactory(IntDTO.DTO_ID, IntDTO)
+        Objects.regFactory(LongDTO.DTO_ID, LongDTO)
+        Objects.regFactory(FloatDTO.DTO_ID, FloatDTO)
+        Objects.regFactory(DoubleDTO.DTO_ID, DoubleDTO)
+    }
 }
-
 fun Array<Long>.toDTO() = Array(size) {
     LongDTO(this[it])
 }

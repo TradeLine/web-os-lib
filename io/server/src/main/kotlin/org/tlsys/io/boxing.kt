@@ -73,11 +73,11 @@ private fun boxCast(valueFrom: Any?): DTO? {
     throw RuntimeException("Can't convert ${valueFrom.javaClass.name} to DTO")
 }
 
-fun Any.toDTO() = boxCast(this)
-fun <T>DTO.toValue(clazz:Class<T>):T? = unboxCast(this, clazz)
+fun Any.boxing() = boxCast(this)
+fun <T>DTO.unboxing(clazz:Class<T>):T? = unboxCast(this, clazz)
 
-fun Method.invoke(self:Any?, vararg arguments:DTO?){
+fun Method.invokeDTO(self:Any?, vararg arguments:DTO?){
     if (parameterCount != arguments.size)
         throw IllegalArgumentException("Can't Invoke method: bad arguments length")
-    this.invoke(self, *Array(parameterCount, { arguments[it]?.toValue(parameterTypes[it]) }))
+    this.invoke(self, *Array(parameterCount, { arguments[it]?.unboxing(parameterTypes[it]) }))
 }
