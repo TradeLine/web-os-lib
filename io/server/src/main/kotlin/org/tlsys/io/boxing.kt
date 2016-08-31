@@ -76,8 +76,8 @@ private fun boxCast(valueFrom: Any?): DTO? {
 fun Any.boxing() = boxCast(this)
 fun <T>DTO.unboxing(clazz:Class<T>):T? = unboxCast(this, clazz)
 
-fun Method.invokeDTO(self:Any?, vararg arguments:DTO?){
+fun Method.invokeDTO(self:Any?, vararg arguments:DTO?):Any?{
     if (parameterCount != arguments.size)
         throw IllegalArgumentException("Can't Invoke method: bad arguments length")
-    this.invoke(self, *Array(parameterCount, { arguments[it]?.unboxing(parameterTypes[it]) }))
+    return this.invoke(self, *Array(parameterCount, { arguments[it]?.unboxing(parameterTypes[it]) }))
 }
