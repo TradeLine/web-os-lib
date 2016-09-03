@@ -169,9 +169,9 @@ class DoubleDTO(var value: Double) : DTO {
 
 }
 
-class ListDTO<T : DTO>(val values: List<DTO?>) : DTO {
+class ListDTO<T : DTO>(val values: List<T?>) : DTO {
     companion object FACTORY : DTOFactory {
-        override fun read(reader: Reader): DTO = ListDTO<DTO>(reader.readList<DTO>())
+        override fun read(reader: Reader): DTO = ListDTO(reader.readList<DTO>())
 
         override fun write(obj: DTO, writer: Writer) {
             writer.writeList((obj as ListDTO<DTO>).values)
@@ -195,6 +195,7 @@ object OBJECT_PRIMITIVS {
         Objects.regFactory(LongDTO.DTO_ID, LongDTO)
         Objects.regFactory(FloatDTO.DTO_ID, FloatDTO)
         Objects.regFactory(DoubleDTO.DTO_ID, DoubleDTO)
+        Objects.regFactory(ListDTO.DTO_ID, ListDTO)
     }
 }
 fun Array<Long>.toDTO() = Array(size) {
