@@ -21,16 +21,16 @@ private fun <T> unboxCast(valueFrom: DTO?, to: Class<*>): T? {
         Double::class.java -> return (valueFrom as DoubleDTO).value as T
     }
 
-    when(valueFrom) {
-        is StringDTO->return valueFrom.value as T
-        is BooleanDTO->return valueFrom.value as T
-        is CharDTO->return valueFrom.value as T
-        is ByteDTO->return valueFrom.value as T
-        is ShortDTO->return valueFrom.value as T
-        is IntDTO->return valueFrom.value as T
-        is FloatDTO->return valueFrom.value as T
-        is LongDTO->return valueFrom.value as T
-        is DoubleDTO->return valueFrom.value as T
+    when (valueFrom) {
+        is StringDTO -> return valueFrom.value as T
+        is BooleanDTO -> return valueFrom.value as T
+        is CharDTO -> return valueFrom.value as T
+        is ByteDTO -> return valueFrom.value as T
+        is ShortDTO -> return valueFrom.value as T
+        is IntDTO -> return valueFrom.value as T
+        is FloatDTO -> return valueFrom.value as T
+        is LongDTO -> return valueFrom.value as T
+        is DoubleDTO -> return valueFrom.value as T
     }
 
     TODO("Can't convert ${valueFrom!!.javaClass.name} to ${to.name}")
@@ -59,7 +59,7 @@ private fun boxCast(valueFrom: Any?): DTO? {
         val out = ArrayList<DTO?>()
         for (i in 0..len - 1)
             out.add(boxCast(java.lang.reflect.Array.get(valueFrom, i)))
-        return  ListDTO<DTO>(out)
+        return ListDTO<DTO>(out)
     }
 
     if (valueFrom is List<*>) {
@@ -74,9 +74,9 @@ private fun boxCast(valueFrom: Any?): DTO? {
 }
 
 fun Any.boxing() = boxCast(this)
-fun <T>DTO.unboxing(clazz:Class<T>):T? = unboxCast(this, clazz)
+fun <T> DTO.unboxing(clazz: Class<T>): T? = unboxCast(this, clazz)
 
-fun Method.invokeDTO(self:Any?, vararg arguments:DTO?):Any?{
+fun Method.invokeDTO(self: Any?, vararg arguments: DTO?): Any? {
     if (parameterCount != arguments.size)
         throw IllegalArgumentException("Can't Invoke method: bad arguments length")
     return this.invoke(self, *Array(parameterCount, { arguments[it]?.unboxing(parameterTypes[it]) }))
