@@ -1,7 +1,7 @@
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption;
 buildscript {
-    ext.kotlin_version = '1.0.3'
+    ext.kotlin_version = '1.0.4'
 
     repositories {
         mavenCentral()
