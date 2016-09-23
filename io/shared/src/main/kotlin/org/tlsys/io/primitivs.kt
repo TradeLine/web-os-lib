@@ -13,7 +13,7 @@ class StringDTO(var value: String) : DTO {
             writer.writeString((obj as StringDTO).value)
         }
 
-        internal val DTO_ID: Int = Objects.calcId("$package_name.StringDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.StringDTO")
     }
 
     override val DTO_ID: Int
@@ -29,7 +29,7 @@ class BooleanDTO(val value: Boolean) : DTO {
             writer.writeBoolean((obj as BooleanDTO).value)
         }
 
-        internal val DTO_ID: Int = Objects.calcId("$package_name.BooleanDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.BooleanDTO")
     }
 
     override val DTO_ID: Int
@@ -45,7 +45,7 @@ class CharDTO(val value: Char) : DTO {
             writer.writeChar((obj as CharDTO).value)
         }
 
-        internal var DTO_ID: Int = Objects.calcId("$package_name.CharDTO")
+        override var DTO_ID: Int = Objects.calcId("$package_name.CharDTO")
     }
 
     override val DTO_ID: Int
@@ -62,7 +62,7 @@ class ByteDTO(val value: Byte) : DTO {
             writer.write((obj as ByteDTO).value + 127)
         }
 
-        internal val DTO_ID: Int = Objects.calcId("$package_name.ByteDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.ByteDTO")
     }
 
     override val DTO_ID: Int
@@ -78,7 +78,7 @@ class ShortDTO(val value: Short) : DTO {
             writer.writeShort((obj as ShortDTO).value)
         }
 
-        internal val DTO_ID: Int = Objects.calcId("$package_name.ShortDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.ShortDTO")
     }
 
     override val DTO_ID: Int
@@ -94,7 +94,7 @@ class IntDTO(val value: Int) : DTO {
             writer.writeInt((obj as IntDTO).value)
         }
 
-        internal val DTO_ID: Int = Objects.calcId("$package_name.IntDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.IntDTO")
     }
 
     override val DTO_ID: Int
@@ -117,7 +117,7 @@ class LongDTO(var value: Long) : DTO {
             writer.writeLong((obj as LongDTO).value)
         }
 
-        internal val DTO_ID: Int = Objects.calcId("$package_name.LongDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.LongDTO")
     }
 
     override val DTO_ID: Int
@@ -139,7 +139,7 @@ class FloatDTO(var value: Float) : DTO {
             writer.writeFloat((obj as FloatDTO).value)
         }
 
-        internal val DTO_ID: Int = Objects.calcId("$package_name.FloatDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.FloatDTO")
     }
 
     override val DTO_ID: Int
@@ -156,7 +156,7 @@ class DoubleDTO(var value: Double) : DTO {
             writer.writeDouble((obj as DoubleDTO).value)
         }
 
-        internal val DTO_ID: Int = Objects.calcId("$package_name.DoubleDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.DoubleDTO")
     }
 
     override val DTO_ID: Int
@@ -177,7 +177,7 @@ class ListDTO<T : DTO>(val values: List<T?>) : DTO {
             writer.writeList((obj as ListDTO<DTO>).values)
         }
 
-        val DTO_ID: Int = Objects.calcId("$package_name.ListDTO")
+        override val DTO_ID: Int = Objects.calcId("$package_name.ListDTO")
     }
 
     override val DTO_ID: Int
@@ -186,18 +186,19 @@ class ListDTO<T : DTO>(val values: List<T?>) : DTO {
 
 object OBJECT_PRIMITIVS {
     fun reg() {
-        Objects.regFactory(StringDTO.DTO_ID, StringDTO)
-        Objects.regFactory(BooleanDTO.DTO_ID, BooleanDTO)
-        Objects.regFactory(CharDTO.DTO_ID, CharDTO)
-        Objects.regFactory(ByteDTO.DTO_ID, ByteDTO)
-        Objects.regFactory(ShortDTO.DTO_ID, ShortDTO)
-        Objects.regFactory(IntDTO.DTO_ID, IntDTO)
-        Objects.regFactory(LongDTO.DTO_ID, LongDTO)
-        Objects.regFactory(FloatDTO.DTO_ID, FloatDTO)
-        Objects.regFactory(DoubleDTO.DTO_ID, DoubleDTO)
-        Objects.regFactory(ListDTO.DTO_ID, ListDTO)
+        Objects.regFactory(StringDTO)
+        Objects.regFactory(BooleanDTO)
+        Objects.regFactory(CharDTO)
+        Objects.regFactory(ByteDTO)
+        Objects.regFactory(ShortDTO)
+        Objects.regFactory(IntDTO)
+        Objects.regFactory(LongDTO)
+        Objects.regFactory(FloatDTO)
+        Objects.regFactory(DoubleDTO)
+        Objects.regFactory(ListDTO)
     }
 }
+
 fun Array<Long>.toDTO() = Array(size) {
     LongDTO(this[it])
 }
