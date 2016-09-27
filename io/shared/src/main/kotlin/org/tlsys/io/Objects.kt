@@ -24,7 +24,7 @@ object Objects {
     fun calcId(className: String): Int {
         var out = 0
         for (i in 0..className.length - 1) {
-            out += className[i].toInt()
+            out += className[i].toInt() * i
         }
         return out
     }
