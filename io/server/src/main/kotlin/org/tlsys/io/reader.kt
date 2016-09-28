@@ -3,6 +3,9 @@ package org.tlsys.io
 import java.io.EOFException
 
 class JReader constructor(val body: String) : Reader {
+    override val cursor: Int
+        get() = _cursor
+
     override fun readChar(): Char = read().toChar()
 
     override fun readShort(): Short {
@@ -40,9 +43,9 @@ class JReader constructor(val body: String) : Reader {
                 ((v7 and 255) shl  0))
     }
 
-    private var cursor: Int = 0
+    private var _cursor: Int = 0
     override fun read(): Int {
-        val b = body[cursor++].toInt()
+        val b = body[_cursor++].toInt()
         return b
     }
 

@@ -5,6 +5,9 @@ import org.khronos.webgl.Float64Array
 import org.khronos.webgl.Int32Array
 
 class JSReader constructor(val body: String) : Reader {
+    override val cursor: Int
+        get() = _cursor
+
     override fun readChar(): Char = read().toChar()
 
     override fun readShort(): Short {
@@ -46,16 +49,17 @@ class JSReader constructor(val body: String) : Reader {
                 ((v7 and 255) shl 0))
     }
 
-    private var cursor = 0;
+    private var _cursor = 0;
     override fun readFloat(): Float {
         val f = Int32Array(1)
-        js("f[0]=f")
+        val v = readInt()
+        js("f[0]=v")
         val i = Float32Array(f.buffer)
         return (js("i[0]"))
     }
 
     override fun read(): Int {
-        val o = body[cursor++].toInt()
+        val o = body[_cursor++].toInt()
         return o
     }
 
@@ -67,5 +71,10 @@ class JSReader constructor(val body: String) : Reader {
         if ((ch1 or ch2 or ch3 or ch4) < 0)
             throw RuntimeException("EOFException");
         return ((ch1 shl 24) + (ch2 shl 16) + (ch3 shl 8) + (ch4 shl 0));
+    }
+
+    override fun readObject(): DTO? {
+        val g = super.readObject()
+        return g
     }
 }

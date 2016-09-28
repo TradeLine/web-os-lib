@@ -4,6 +4,8 @@ import java.util.*
 
 interface Reader {
     fun readBoolean() = read() == 42
+
+    val cursor: Int
     fun read(): Int
     fun readChar(): Char
     fun readShort(): Short
@@ -22,7 +24,6 @@ interface Reader {
     fun readObject(): DTO? {
         if (readBoolean()) {
             val id = readInt()
-
             val f = Objects.getFactoryById(id) ?: throw DTOFactoryNotFound(id)
             val o = f.read(this)
             return o

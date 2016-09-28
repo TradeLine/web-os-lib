@@ -5,6 +5,7 @@ interface Writer {
         write(if (value) 42 else 38)
     }
 
+    val cursor:Int
     fun write(v: Int)
     fun writeChar(v: Char)
     fun writeShort(v: Short)
@@ -13,13 +14,12 @@ interface Writer {
     fun writeLong(v: Long)
     fun writeDouble(v: Double)
     fun writeObject(obj: DTO?) {
-        if (obj == null) {
+        if (obj === null) {
             writeBoolean(false)
         } else {
             writeBoolean(true)
             writeInt(obj.DTO_ID)
-            val factory = Objects.getFactoryById(obj.DTO_ID)?:throw RuntimeException("Can't find factory for ${obj.DTO_ID}")
-
+            val factory = Objects.getFactoryById(obj.DTO_ID) ?: throw RuntimeException("Can't find factory for ${obj.DTO_ID}")
             factory.write(obj, this)
         }
     }

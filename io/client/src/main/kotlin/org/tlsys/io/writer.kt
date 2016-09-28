@@ -5,6 +5,9 @@ import org.khronos.webgl.Float64Array
 import org.khronos.webgl.Int32Array
 
 class JSWriter : Writer {
+    override val cursor: Int
+        get() = out.length
+
     override fun writeChar(v: Char) {
         write(v.toInt())
     }
@@ -39,8 +42,8 @@ class JSWriter : Writer {
         write((v ushr 32).toByte().toInt())
         write((v ushr 24).toByte().toInt())
         write((v ushr 16).toByte().toInt())
-        write((v ushr  8).toByte().toInt())
-        write((v ushr  0).toByte().toInt())
+        write((v ushr 8).toByte().toInt())
+        write((v ushr 0).toByte().toInt())
     }
 
     private var out: String = ""
