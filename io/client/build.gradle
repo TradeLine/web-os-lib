@@ -67,8 +67,8 @@ jar {
     from "${project.buildDir}/classes/main"
     include "**/*.class"
 
-    from sourceSets.main.allSource
-    include "**/*.kt"
+    //from sourceSets.main.allSource
+    //include "**/*.kt"
 
     includeEmptyDirs = false
 
