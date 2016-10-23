@@ -2,7 +2,7 @@ package org.tlsys.io
 
 import java.lang.reflect.Method
 import java.util.*
-
+/*
 private fun <T> unboxCast(valueFrom: DTO?, to: Class<*>): T? {
     if (valueFrom === null)
         return null
@@ -80,4 +80,4 @@ fun Method.invokeDTO(self: Any?, vararg arguments: DTO?): Any? {
     if (parameterCount != arguments.size)
         throw IllegalArgumentException("Can't Invoke method: bad arguments length")
     return this.invoke(self, *Array(parameterCount, { arguments[it]?.unboxing(parameterTypes[it]) }))
-}
+}*/

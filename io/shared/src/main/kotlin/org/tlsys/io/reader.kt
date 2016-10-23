@@ -32,11 +32,11 @@ interface Reader {
         }
     }
 
-    fun <T : DTO> readList(): List<T?> {
+    fun <T : DTO> readList(): List<T> {
         val size = readInt()
-        val out = ArrayList<T?>(size)
+        val out = ArrayList<T>(size)
         for (f in 0..size - 1) {
-            out.add(readObject() as T?)
+            out.add(readObject() as T)
         }
 
         return out

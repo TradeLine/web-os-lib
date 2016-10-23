@@ -169,7 +169,7 @@ class DoubleDTO(var value: Double) : DTO {
 
 }
 
-class ListDTO<T : DTO>(val values: List<T?>) : DTO {
+class ListDTO<T : DTO>(val values: List<T>) : DTO {
     companion object FACTORY : DTOFactory {
         override fun read(reader: Reader): DTO = ListDTO(reader.readList<DTO>())
 
