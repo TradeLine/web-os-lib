@@ -33,35 +33,38 @@ dependencies {
 
 }
 
-def out = "${buildDir}/js"
+def out = "${buildDir}/classes/main"
 //compileKotlin2Js.kotlinOptions.sourceMap = true
-compileKotlin2Js.kotlinOptions.outputFile = "${out}/io-shared.js"
-compileKotlin2Js.kotlinOptions.suppressWarnings = true
-compileKotlin2Js.kotlinOptions.verbose = true
-compileKotlin2Js.kotlinOptions.metaInfo = true
+compileKotlin2Js {
+    kotlinOptions.outputFile = "${out}/io-shared.js"
+    kotlinOptions.suppressWarnings = true
+    kotlinOptions.verbose = true
+    kotlinOptions.metaInfo = true
+}
 
 compileKotlin {
     dependsOn compileKotlin2Js
 }
 
 jar {
+    dependsOn compileKotlin
+    //from "${project.buildDir}/classes/main"
+    //include "**/*.class"
 
-    from "${project.buildDir}/classes/main"
-    include "**/*.class"
+    //from sourceSets.main.allSource
+    //include "**/*.kt"
 
-    from sourceSets.main.allSource
-    include "**/*.kt"
+    //includeEmptyDirs = false
 
-    includeEmptyDirs = false
-
-    from out
-    include "**/*.js"
-    include "**/*.map"
-
+    //from out
+    //include "**/*.js"
+    //include "**/*.map"
+/*
     manifest {
         attributes(
                 "Specification-Title": "Kotlin JavaScript Lib",
                 "Kotlin-JS-Module-Name": "io-shared"
         )
     }
+    */
 }

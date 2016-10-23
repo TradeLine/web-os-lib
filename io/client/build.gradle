@@ -35,12 +35,14 @@ dependencies {
     compile project(":io:shared")
 }
 
-def out = "${buildDir}/js"
-compileKotlin2Js.kotlinOptions.sourceMap = true
-compileKotlin2Js.kotlinOptions.outputFile = "${out}/io-client.js"
-compileKotlin2Js.kotlinOptions.suppressWarnings = true
-compileKotlin2Js.kotlinOptions.verbose = true
-compileKotlin2Js.kotlinOptions.metaInfo = true
+def out = "${buildDir}/classes/main"
+compileKotlin2Js {
+    kotlinOptions.sourceMap = true
+    kotlinOptions.outputFile = "${out}/io-client.js"
+    kotlinOptions.suppressWarnings = true
+    kotlinOptions.verbose = true
+    kotlinOptions.metaInfo = true
+}
 
 evaluationDependsOn(':io:shared')
 /*
@@ -64,22 +66,23 @@ compileKotlin2Js {
 
 jar {
     dependsOn compileKotlin2Js
-    from "${project.buildDir}/classes/main"
-    include "**/*.class"
+    //from "${project.buildDir}/classes/main"
+    //include "**/*.class"
 
     //from sourceSets.main.allSource
     //include "**/*.kt"
 
-    includeEmptyDirs = false
+    //includeEmptyDirs = false
 
-    from out
-    include "**/*.js"
-    include "**/*.map"
-
+    //from out
+    //include "**/*.js"
+    //include "**/*.map"
+/*
     manifest {
         attributes(
                 "Specification-Title": "Kotlin JavaScript Lib",
                 "Kotlin-JS-Module-Name": "io-client"
         )
     }
+    */
 }
