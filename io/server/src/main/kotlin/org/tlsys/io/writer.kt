@@ -1,5 +1,7 @@
 package org.tlsys.io
 
+import java.util.logging.Logger
+
 class JWriter : Writer {
     override val cursor: Int
         get() = out.length
@@ -55,8 +57,14 @@ class JWriter : Writer {
 
     override fun toString(): String = out
 
+    private val LOG = Logger.getLogger(javaClass.name)
+
     override fun writeObject(obj: DTO?) {
         try {
+            if (obj !== null)
+                LOG.info("Write object ${obj.javaClass.name} (${obj.DTO_ID})")
+            else
+                LOG.info("Write NULL")
             super.writeObject(obj)
         } catch(e: Throwable) {
             throw RuntimeException("Can't write ${obj?.javaClass?.name}", e)

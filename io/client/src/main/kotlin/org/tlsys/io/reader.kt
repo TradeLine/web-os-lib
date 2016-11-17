@@ -75,6 +75,11 @@ class JSReader constructor(val body: String) : Reader {
 
     override fun readObject(): DTO? {
         val g = super.readObject()
+        if (g === null)
+            console.info("Readed NULL")
+        else {
+            console.info("Readed ${g.jsClass.name} (${g.DTO_ID})")
+        }
         return g
     }
 }
