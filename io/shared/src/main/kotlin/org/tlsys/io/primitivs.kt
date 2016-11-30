@@ -169,7 +169,27 @@ class DoubleDTO(var value: Double) : DTO {
 
 }
 
-class ListDTO<T : DTO>(val values: List<T>) : DTO {
+class ListDTO<T : DTO> : DTO {
+    val values: List<T>
+
+    constructor(values: List<T>) {
+        this.values = values
+    }
+
+    constructor(size: Int, f: (Int) -> T) {
+        val l = ArrayList<T>(size)
+        for (i in 0..size - 1)
+            l += f(i)
+        this.values = l
+    }
+
+    constructor(values: Array<T>) {
+        val l = ArrayList<T>(values.size)
+        for (i in 0..values.size - 1)
+            l += values[i]
+        this.values = l
+    }
+
     companion object FACTORY : DTOFactory {
         override fun read(reader: Reader): DTO = ListDTO(reader.readList<DTO>())
 
