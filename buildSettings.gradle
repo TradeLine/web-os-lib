@@ -1,0 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+                url 'https://dl.bintray.com/kotlin/kotlin-dev/'
+        }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1-M03-eap-21"
+    }
+}

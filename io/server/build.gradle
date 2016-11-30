@@ -1,19 +1,5 @@
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption;
-buildscript {
-    ext.kotlin_version = '1.0.4'
-
-    repositories {
-        mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
 
 repositories {
     mavenCentral()
