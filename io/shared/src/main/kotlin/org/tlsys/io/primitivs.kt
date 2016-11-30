@@ -169,7 +169,9 @@ class DoubleDTO(var value: Double) : DTO {
 
 }
 
-class ListDTO<T : DTO> : DTO {
+class ListDTO<T : DTO> : DTO, Iterable<T> {
+    override fun iterator(): Iterator<T> = values.iterator()
+
     val values: List<T>
 
     constructor(values: List<T>) {
@@ -189,6 +191,11 @@ class ListDTO<T : DTO> : DTO {
             l += values[i]
         this.values = l
     }
+
+    val size: Int
+        get() = values.size
+
+    operator fun get(index: Int): T = values[index]
 
     companion object FACTORY : DTOFactory {
         override fun read(reader: Reader): DTO = ListDTO(reader.readList<DTO>())
