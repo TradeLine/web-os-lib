@@ -181,14 +181,14 @@ class ListDTO<T : DTO> : DTO, Iterable<T> {
     constructor(size: Int, f: (Int) -> T) {
         val l = ArrayList<T>(size)
         for (i in 0..size - 1)
-            l += f(i)
+            l.add(f(i))
         this.values = l
     }
 
     constructor(values: Array<T>) {
         val l = ArrayList<T>(values.size)
         for (i in 0..values.size - 1)
-            l += values[i]
+            l.add(values[i])
         this.values = l
     }
 
