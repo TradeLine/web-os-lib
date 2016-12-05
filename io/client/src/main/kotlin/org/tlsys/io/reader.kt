@@ -51,11 +51,11 @@ class JSReader constructor(val body: String) : Reader {
 
     private var _cursor = 0;
     override fun readFloat(): Float {
-        val f = Int32Array(1)
-        val v = readInt()
-        js("f[0]=v")
-        val i = Float32Array(f.buffer)
-        return (js("i[0]"))
+        val INT_ARRAY = Int32Array(1)
+        val INT_VALUE = readInt()
+        js("INT_ARRAY[0]=INT_VALUE")
+        val FARRAY_VAL = Float32Array(INT_ARRAY.buffer)
+        return (js("FARRAY_VAL[0]"))
     }
 
     override fun read(): Int {
