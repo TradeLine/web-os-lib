@@ -1,6 +1,5 @@
 package org.tlsys.io
 
-import java.util.*
 
 private val package_name = "org.tlsys.io"
 
