@@ -4,9 +4,19 @@ import java.io.EOFException
 
 class JReader : Reader {
 
+    private companion object {
+        fun bytesToString(data: ByteArray): String {
+            var out = ""
+            for (i in 0..data.size - 1) {
+                out += (data[i].toInt()+127).toChar()
+            }
+            return out
+        }
+    }
+
     private val body: String
 
-    constructor(bytes: ByteArray) : this(String(bytes))
+    constructor(bytes: ByteArray) : this(bytesToString(bytes))
 
     constructor(body: String) {
         this.body = body

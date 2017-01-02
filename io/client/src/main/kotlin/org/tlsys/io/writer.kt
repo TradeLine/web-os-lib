@@ -5,14 +5,6 @@ import org.khronos.webgl.Float64Array
 import org.khronos.webgl.Int32Array
 
 class JSWriter : Writer {
-    override fun toByteArray(): ByteArray {
-        val data = ByteArray(out.length)
-        for (i in 0..out.length - 1) {
-            data[i] = out[i].toByte()
-        }
-        return data
-    }
-
     override val cursor: Int
         get() = out.length
 
@@ -33,13 +25,10 @@ class JSWriter : Writer {
 
     override fun writeDouble(v: Double) {
         val f = Float64Array(1)
-        js("f[0]=v")
+        f.asDynamic()[0]=v
         val i = Int32Array(f.buffer)
-        val v1 = js("i[0]")
-        val v2 = js("i[1]")
-
-        writeInt(v2)
-        writeInt(v1)
+        writeInt(i.asDynamic()[1])
+        writeInt(i.asDynamic()[0])
 
     }
 
@@ -59,6 +48,7 @@ class JSWriter : Writer {
         out += byte.toChar()
     }
 
+    /*
     private fun asByteArray(): ByteArray {
         val data = ByteArray(out.length)
         for (i in 0..out.length - 1) {
@@ -66,6 +56,8 @@ class JSWriter : Writer {
         }
         return data
     }
+
+    */
 
     override fun writeInt(v: Int) {
         write(((v ushr 24) and 0xFF))
@@ -76,9 +68,9 @@ class JSWriter : Writer {
 
     override fun writeFloat(v: Float) {
         val f = Float32Array(1)
-        js("f[0]=v")
+        f.asDynamic()[0] = v
         val i = Int32Array(f.buffer)
-        writeInt(js("i[0]"))
+        writeInt(i.asDynamic()[0])
     }
 
     override fun toString(): String = out

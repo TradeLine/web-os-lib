@@ -10,7 +10,7 @@ class JSReader : Reader {
         fun bytesToString(data: ByteArray): String {
             var out = ""
             for (i in 0..data.size - 1) {
-                out += data[0].toChar()
+                out += (data[i].toInt()+127).toChar()
             }
             return out
         }
@@ -42,10 +42,13 @@ class JSReader : Reader {
         val v1 = readInt().toLong() and 0xFFFFFFFF
 //val r = (v1.toLong() shl 24) + v2
         val i = Int32Array(2)
-        js("i[0]=v1")
-        js("i[1]=v2")
+        i.asDynamic()[0]=v1
+        i.asDynamic()[1]=v2
+        //js("i[0]=v1")
+        //js("i[1]=v2")
         val f = Float64Array(i.buffer)
-        return js("f[0]")
+        return f.asDynamic()[0]
+        //return js("f[0]")
     }
 
     override fun readLong(): Long {
@@ -70,11 +73,10 @@ class JSReader : Reader {
 
     private var _cursor = 0;
     override fun readFloat(): Float {
-        val INT_ARRAY = Int32Array(1)
-        val INT_VALUE = readInt()
-        js("INT_ARRAY[0]=INT_VALUE")
-        val FARRAY_VAL = Float32Array(INT_ARRAY.buffer)
-        return (js("FARRAY_VAL[0]"))
+        val iArray = Int32Array(1)
+        iArray.asDynamic()[0] = readInt()
+        val fArray = Float32Array(iArray.buffer)
+        return fArray.asDynamic()[0]
     }
 
     override fun read(): Int {

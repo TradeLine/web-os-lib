@@ -5,7 +5,7 @@ interface Writer {
         write(if (value) 42 else 38)
     }
 
-    val cursor:Int
+    val cursor: Int
     fun write(v: Int)
     fun writeChar(v: Char)
     fun writeShort(v: Short)
@@ -24,7 +24,14 @@ interface Writer {
         }
     }
 
-    fun toByteArray():ByteArray
+    fun toByteArray(): ByteArray {
+        val out = toString()
+        val data = ByteArray(out.length)
+        for (i in 0..out.length - 1) {
+            data[i] = (out[i].toInt() - 127).toByte()
+        }
+        return data
+    }
 
     fun <T : DTO> writeList(list: List<T?>) {
         writeInt(list.size)
