@@ -24,6 +24,8 @@ interface Writer {
         }
     }
 
+    fun toByteArray():ByteArray
+
     fun <T : DTO> writeList(list: List<T?>) {
         writeInt(list.size)
         for (it in list)

@@ -2,7 +2,16 @@ package org.tlsys.io
 
 import java.io.EOFException
 
-class JReader constructor(val body: String) : Reader {
+class JReader : Reader {
+
+    private val body: String
+
+    constructor(bytes: ByteArray) : this(String(bytes))
+
+    constructor(body: String) {
+        this.body = body
+    }
+
     override val cursor: Int
         get() = _cursor
 
@@ -17,7 +26,7 @@ class JReader constructor(val body: String) : Reader {
     }
 
     override fun readDouble(): Double {
-        val v1 = readInt().toLong()and 0xFFFFFFFF shl 32
+        val v1 = readInt().toLong() and 0xFFFFFFFF shl 32
         val v2 = readInt().toLong() and 0xFFFFFFFF
         val r = v1 + v2
         return java.lang.Double.longBitsToDouble(r)
@@ -39,8 +48,8 @@ class JReader constructor(val body: String) : Reader {
                 ((v3 and 255).toLong() shl 32) +
                 ((v4 and 255).toLong() shl 24) +
                 ((v5 and 255) shl 16) +
-                ((v6 and 255) shl  8) +
-                ((v7 and 255) shl  0))
+                ((v6 and 255) shl 8) +
+                ((v7 and 255) shl 0))
     }
 
     private var _cursor: Int = 0

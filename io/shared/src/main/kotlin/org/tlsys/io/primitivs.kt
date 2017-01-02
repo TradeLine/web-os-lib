@@ -104,7 +104,6 @@ class IntDTO(val value: Int) : DTO {
         return "IntDTO(value=$value)"
     }
 
-
 }
 
 class LongDTO(var value: Long) : DTO {
@@ -126,7 +125,6 @@ class LongDTO(var value: Long) : DTO {
         return "LongDTO(value=$value)"
     }
 
-
 }
 
 class FloatDTO(var value: Float) : DTO {
@@ -143,7 +141,6 @@ class FloatDTO(var value: Float) : DTO {
 
     override val DTO_ID: Int
         get() = FACTORE.DTO_ID
-
 }
 
 class DoubleDTO(var value: Double) : DTO {
@@ -164,8 +161,6 @@ class DoubleDTO(var value: Double) : DTO {
     override fun toString(): String {
         return "DoubleDTO(value=$value)"
     }
-
-
 }
 
 class ListDTO<T : DTO> : DTO, Iterable<T> {
@@ -178,14 +173,14 @@ class ListDTO<T : DTO> : DTO, Iterable<T> {
     }
 
     constructor(size: Int, f: (Int) -> T) {
-        val l = ArrayList<T>(size)
+        val l = java.util.ArrayList<T>(size)
         for (i in 0..size - 1)
             l.add(f(i))
         this.values = l
     }
 
     constructor(values: Array<T>) {
-        val l = ArrayList<T>(values.size)
+        val l = java.util.ArrayList<T>(values.size)
         for (i in 0..values.size - 1)
             l.add(values[i])
         this.values = l

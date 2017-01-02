@@ -1,7 +1,3 @@
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
 apply plugin: "kotlin2js"
 apply plugin: "kotlin"
 apply plugin: 'maven-publish'
@@ -19,7 +15,6 @@ publishing {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-js-library:$kotlin_version"
-
 }
 
 def out = "${buildDir}/classes/main"

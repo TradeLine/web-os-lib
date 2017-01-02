@@ -1,5 +1,6 @@
 package org.tlsys.io
 
+import java.io.OutputStream
 import java.util.logging.Logger
 
 class JWriter : Writer {
@@ -21,6 +22,12 @@ class JWriter : Writer {
         if (work != null)
             work(this)
     }
+
+    fun writeToStream(stream: OutputStream) {
+        stream.write(out.toByteArray())
+    }
+
+    override fun toByteArray() = out.toByteArray()
 
     override fun writeDouble(v: Double) {
         val l = java.lang.Double.doubleToLongBits(v);
