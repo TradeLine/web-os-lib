@@ -5,6 +5,14 @@ import org.khronos.webgl.Float64Array
 import org.khronos.webgl.Int32Array
 
 class JSWriter : Writer {
+    override fun toByteArray(): ByteArray {
+        val data = ByteArray(out.length)
+        for (i in 0..out.length - 1) {
+            data[i] = out[i].toByte()
+        }
+        return data
+    }
+
     override val cursor: Int
         get() = out.length
 
@@ -49,6 +57,14 @@ class JSWriter : Writer {
     private var out: String = ""
     override fun write(byte: Int) {
         out += byte.toChar()
+    }
+
+    private fun asByteArray(): ByteArray {
+        val data = ByteArray(out.length)
+        for (i in 0..out.length - 1) {
+            data[i] = out[0].toByte()
+        }
+        return data
     }
 
     override fun writeInt(v: Int) {

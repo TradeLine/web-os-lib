@@ -4,7 +4,26 @@ import org.khronos.webgl.Float32Array
 import org.khronos.webgl.Float64Array
 import org.khronos.webgl.Int32Array
 
-class JSReader constructor(val body: String) : Reader {
+class JSReader : Reader {
+
+    private companion object {
+        fun bytesToString(data: ByteArray): String {
+            var out = ""
+            for (i in 0..data.size - 1) {
+                out += data[0].toChar()
+            }
+            return out
+        }
+    }
+
+    private val body: String
+
+    constructor(data: ByteArray) : this(bytesToString(data))
+
+    constructor(body: String) {
+        this.body = body
+    }
+
     override val cursor: Int
         get() = _cursor
 
