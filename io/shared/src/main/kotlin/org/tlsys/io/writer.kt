@@ -56,4 +56,40 @@ interface Writer {
         for (i in 0..str.length - 1)
             write(str[i].toInt())
     }
+
+    fun intOrNull(value: Int?) {
+        if (value === null) {
+            writeBoolean(false)
+        } else {
+            writeBoolean(true)
+            writeInt(value)
+        }
+    }
+
+    fun stringOrNull(value: String?) {
+        if (value === null) {
+            writeBoolean(false)
+        } else {
+            writeBoolean(true)
+            writeString(value)
+        }
+    }
+
+    fun floatOrNull(value: Float?) {
+        if (value === null) {
+            writeBoolean(false)
+        } else {
+            writeBoolean(true)
+            writeFloat(value)
+        }
+    }
+
+    fun longOrNull(value: Long?) {
+        if (value === null) {
+            writeBoolean(false)
+        } else {
+            writeBoolean(true)
+            writeLong(value)
+        }
+    }
 }

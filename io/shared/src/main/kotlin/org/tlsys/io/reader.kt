@@ -41,6 +41,11 @@ interface Reader {
 
         return out
     }
+
+    fun intOrNull() = if (readBoolean()) readInt() else null
+    fun stringOrNull() = if (readBoolean()) readString() else null
+    fun floatOrNull() = if (readBoolean()) readFloat() else null
+    fun longOrNull() = if (readBoolean()) readLong() else null
 }
 
 class DTOFactoryNotFound constructor(val id: Int) : RuntimeException("DTO with ID $id not found!")
