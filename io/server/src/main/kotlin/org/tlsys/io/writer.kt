@@ -28,7 +28,7 @@ class JWriter : Writer {
     }
 
     override fun toByteArray() = ByteArray(out.length) {
-        (out[it].toInt()-127).toByte()
+        (out[it].toInt() - 127).toByte()
     }
 
     override fun writeDouble(v: Double) {

@@ -3,14 +3,13 @@ package org.tlsys.io
 import java.io.EOFException
 
 class JReader : Reader {
-
     private companion object {
         fun bytesToString(data: ByteArray): String {
-            var out = ""
+            var out = StringBuilder()
             for (i in 0..data.size - 1) {
-                out += (data[i].toInt()+127).toChar()
+                out.append((data[i].toInt() + 127).toChar())
             }
-            return out
+            return out.toString()
         }
     }
 

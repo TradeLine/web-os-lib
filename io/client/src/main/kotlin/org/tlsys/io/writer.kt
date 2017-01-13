@@ -25,7 +25,7 @@ class JSWriter : Writer {
 
     override fun writeDouble(v: Double) {
         val f = Float64Array(1)
-        f.asDynamic()[0]=v
+        f.asDynamic()[0] = v
         val i = Int32Array(f.buffer)
         writeInt(i.asDynamic()[1])
         writeInt(i.asDynamic()[0])

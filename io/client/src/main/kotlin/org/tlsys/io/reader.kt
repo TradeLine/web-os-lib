@@ -5,12 +5,11 @@ import org.khronos.webgl.Float64Array
 import org.khronos.webgl.Int32Array
 
 class JSReader : Reader {
-
     private companion object {
         fun bytesToString(data: ByteArray): String {
             var out = ""
             for (i in 0..data.size - 1) {
-                out += (data[i].toInt()+127).toChar()
+                out += (data[i].toInt() + 127).toChar()
             }
             return out
         }
@@ -42,8 +41,8 @@ class JSReader : Reader {
         val v1 = readInt().toLong() and 0xFFFFFFFF
 //val r = (v1.toLong() shl 24) + v2
         val i = Int32Array(2)
-        i.asDynamic()[0]=v1
-        i.asDynamic()[1]=v2
+        i.asDynamic()[0] = v1
+        i.asDynamic()[1] = v2
         //js("i[0]=v1")
         //js("i[1]=v2")
         val f = Float64Array(i.buffer)
