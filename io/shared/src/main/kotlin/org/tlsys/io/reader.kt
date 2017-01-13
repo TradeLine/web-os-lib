@@ -7,6 +7,7 @@ interface Reader {
 
     val cursor: Int
     fun read(): Int
+    fun byte(): Byte = read().toByte()
     fun readChar(): Char
     fun readShort(): Short
     fun readInt(): Int
@@ -46,6 +47,7 @@ interface Reader {
     fun stringOrNull() = if (readBoolean()) readString() else null
     fun floatOrNull() = if (readBoolean()) readFloat() else null
     fun longOrNull() = if (readBoolean()) readLong() else null
+    fun byteOrNull() = if (readBoolean()) byte() else null
 }
 
 class DTOFactoryNotFound constructor(val id: Int) : RuntimeException("DTO with ID $id not found!")

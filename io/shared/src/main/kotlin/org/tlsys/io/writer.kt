@@ -6,6 +6,10 @@ interface Writer {
     }
 
     val cursor: Int
+    fun byte(v: Byte) {
+        write(v.toInt())
+    }
+
     fun write(v: Int)
     fun writeChar(v: Char)
     fun writeShort(v: Short)
@@ -90,6 +94,15 @@ interface Writer {
         } else {
             writeBoolean(true)
             writeLong(value)
+        }
+    }
+
+    fun byteOrNull(value: Byte?) {
+        if (value === null) {
+            writeBoolean(false)
+        } else {
+            writeBoolean(true)
+            byte(value)
         }
     }
 }
