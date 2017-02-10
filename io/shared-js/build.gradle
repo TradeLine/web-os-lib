@@ -5,7 +5,7 @@ def osName = System.getProperty("os.name").toLowerCase()
 if (!file("${projectDir}/src").exists()) {
     def from = "${project("${project.parent.path}:shared").projectDir}/src"
     def to = "${project.projectDir}/src"
-    if (osName == "linux") {
+    if (osName == "linux" || osName.concat("mac")) {
         exec {
             commandLine 'ln', '-s', from, to
         }
