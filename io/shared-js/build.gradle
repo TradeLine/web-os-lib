@@ -2,10 +2,12 @@ apply plugin: "kotlin2js"
 apply plugin: 'maven-publish'
 
 def osName = System.getProperty("os.name").toLowerCase()
-if (!file("${projectDir}/src").exists()) {
-    def from = "${project("${project.parent.path}:shared").projectDir}/src"
-    def to = "${project.projectDir}/src"
-    if (osName == "linux" || osName.concat("mac")) {
+def s = "/src/main/kotlin/org"
+if (!file("${projectDir}${s}").exists()) {
+    file("${projectDir}${s}").mkdirs()
+    def from = "${project("${project.parent.path}:shared").projectDir}${s}"
+    def to = "${project.projectDir}${s}"
+    if (osName == "linux" || osName == "mac os x") {
         exec {
             commandLine 'ln', '-s', from, to
         }

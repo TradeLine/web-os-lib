@@ -1,19 +1,13 @@
 package org.tlsys.io
 
 import java.io.ByteArrayOutputStream
-import java.io.OutputStream
-import java.util.*
 
-class JWriter : Writer {
+class JWriter : org.tlsys.io.Writer {
     val data = ByteArrayOutputStream()
 
     constructor(work: ((JWriter) -> Unit)? = null) {
         if (work != null)
             work(this)
-    }
-
-    fun writeToStream(stream: OutputStream) {
-        stream.write(toByteArray())
     }
 
     override fun toByteArray() = data.toByteArray()!!
@@ -43,4 +37,4 @@ class JWriter : Writer {
     }
 }
 
-fun Writer.toBase64(): String = Base64.getEncoder().encodeToString(toByteArray())
+fun Writer.toBase64(): String = java.util.Base64.getEncoder().encodeToString(toByteArray())

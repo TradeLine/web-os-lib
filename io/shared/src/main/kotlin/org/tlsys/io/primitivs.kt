@@ -22,10 +22,10 @@ class StringDTO(var value: String) : DTO {
 class BooleanDTO(val value: Boolean) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = BooleanDTO(reader.readBoolean())
+        override fun read(reader: Reader): DTO = BooleanDTO(reader.boolean())
 
         override fun write(obj: DTO, writer: Writer) {
-            writer.writeBoolean((obj as BooleanDTO).value)
+            writer.boolean((obj as BooleanDTO).value)
         }
 
         override val DTO_ID: Int = Objects.calcId("$package_name.BooleanDTO")

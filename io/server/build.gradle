@@ -4,6 +4,7 @@ import java.nio.file.StandardCopyOption;
 repositories {
     mavenCentral()
     mavenLocal()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
 }
 
 apply plugin: 'kotlin'
@@ -23,9 +24,6 @@ publishing {
 
 dependencies {
     testCompile 'junit:junit:4.8.2'
-    compile (project(":io:shared")){
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-js-library'
-    }
+    compile(project(":io:shared"))
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    //
 }

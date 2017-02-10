@@ -4,7 +4,10 @@ apply plugin: 'maven-publish'
 repositories {
     mavenCentral()
     mavenLocal()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
 }
+
+
 
 publishing {
     publications {
@@ -13,6 +16,14 @@ publishing {
             artifactId 'tl-io-client'
             version "1.0"
             from components.java
+            pom.withXml {
+                asNode().dependencies.'*'.findAll() {
+                    if (it.groupId.text() == "io.io" && it.artifactId.text() == "shared-js") {
+                        it.parent().remove(it)
+                    }
+                    //println(">>>>"+it.groupId.text()+"   " + it.artifactId.text())
+                }
+            }
         }
     }
 }

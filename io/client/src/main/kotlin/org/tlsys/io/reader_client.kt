@@ -5,7 +5,7 @@ import org.khronos.webgl.Float64Array
 import org.khronos.webgl.Int32Array
 
 class JSReader : Reader {
-    private companion object {
+    companion object {
         fun fromBase64(data: String): JSReader = JSReader((js("atob")(data)))
     }
 

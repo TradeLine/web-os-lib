@@ -1,12 +1,11 @@
 package org.tlsys.io
 
-import java.util.*
 
-class JReader : Reader {
+class JReader : org.tlsys.io.Reader {
     private val body: ByteArray
 
     companion object {
-        fun fromBase64(str: String) = JReader(Base64.getDecoder().decode(str))
+        fun fromBase64(str: String) = JReader(java.util.Base64.getDecoder().decode(str))
     }
 
     constructor(bytes: ByteArray) {

@@ -1,12 +1,10 @@
 buildscript {
-    ext.kotlin_version = '1.1-M04'
+    ext.kotlin_version = '1.1.0-dev-6881'
 
     repositories {
         mavenCentral()
         jcenter()
-        maven {
-                url 'https://dl.bintray.com/kotlin/kotlin-dev/'
-        }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
     }
 
     dependencies {

@@ -5,7 +5,7 @@ abstract class Reader {
     companion object {
     }
 
-    fun readBoolean() = read().toInt() == 42
+    fun boolean() = read().toInt() == 42
     abstract fun read(): Byte
     fun byte(): Byte = read()
     fun char(): Char = short().toChar()
@@ -59,7 +59,7 @@ abstract class Reader {
     }
 
     fun obj(): DTO? {
-        if (readBoolean()) {
+        if (boolean()) {
             val id = int()
             val f = Objects.getFactoryById(id) ?: throw DTOFactoryNotFound(id)
             val o = f.read(this)
@@ -79,11 +79,11 @@ abstract class Reader {
         return out
     }
 
-    fun intOrNull() = if (readBoolean()) int() else null
-    fun stringOrNull() = if (readBoolean()) string() else null
-    fun floatOrNull() = if (readBoolean()) float() else null
-    fun longOrNull() = if (readBoolean()) long() else null
-    fun byteOrNull() = if (readBoolean()) byte() else null
+    fun intOrNull() = if (boolean()) int() else null
+    fun stringOrNull() = if (boolean()) string() else null
+    fun floatOrNull() = if (boolean()) float() else null
+    fun longOrNull() = if (boolean()) long() else null
+    fun byteOrNull() = if (boolean()) byte() else null
 }
 
 class DTOFactoryNotFound constructor(val id: Int) : RuntimeException("DTO with ID $id not found!")

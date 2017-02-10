@@ -18,18 +18,20 @@ dependencies {
 
 
 jar {
-    //dependsOn compileKotlin
-    //from "${project.buildDir}/classes/main"
-    //include "**/*.class"
+    def sharedJSProject = project("${project.parent.path}:shared-js")
+    dependsOn "${sharedJSProject.path}:compileKotlin2Js"
+    from("${sharedJSProject.buildDir}/classes/main") {
+        //include "**/*.class"
 
-    //from sourceSets.main.allSource
-    //include "**/*.kt"
+        //from sourceSets.main.allSource
+        //include "**/*.kt"
 
-    //includeEmptyDirs = false
+        //includeEmptyDirs = false
 
-    //from out
-    //include "**/*.js"
-    //include "**/*.map"
+        //from out
+        include "**/*.js"
+        include "**/*.map"
+    }
 /*
     manifest {
         attributes(

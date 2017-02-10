@@ -6,6 +6,7 @@ apply plugin: "kotlin2js"
 repositories {
     mavenCentral()
     mavenLocal()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
 }
 
 publishing {
@@ -21,7 +22,7 @@ publishing {
 
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-js-library:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
 }
 
 def outDir = "${buildDir}/js"

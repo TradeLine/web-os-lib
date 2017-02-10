@@ -1,7 +1,7 @@
 package org.tlsys.io
 
 abstract class Writer {
-    fun writeBoolean(value: Boolean) {
+    fun boolean(value: Boolean) {
         write(if (value) 42 else 38)
     }
 
@@ -40,9 +40,9 @@ abstract class Writer {
 
     open fun obj(obj: DTO?) {
         if (obj === null) {
-            writeBoolean(false)
+            boolean(false)
         } else {
-            writeBoolean(true)
+            boolean(true)
             int(obj.DTO_ID)
             val factory = Objects.getFactoryById(obj.DTO_ID) ?: throw RuntimeException("Can't find factory for ${obj.DTO_ID}")
             factory.write(obj, this)
@@ -77,45 +77,45 @@ abstract class Writer {
 
     fun intOrNull(value: Int?) {
         if (value === null) {
-            writeBoolean(false)
+            boolean(false)
         } else {
-            writeBoolean(true)
+            boolean(true)
             int(value)
         }
     }
 
     fun stringOrNull(value: String?) {
         if (value === null) {
-            writeBoolean(false)
+            boolean(false)
         } else {
-            writeBoolean(true)
+            boolean(true)
             string(value)
         }
     }
 
     fun floatOrNull(value: Float?) {
         if (value === null) {
-            writeBoolean(false)
+            boolean(false)
         } else {
-            writeBoolean(true)
+            boolean(true)
             float(value)
         }
     }
 
     fun longOrNull(value: Long?) {
         if (value === null) {
-            writeBoolean(false)
+            boolean(false)
         } else {
-            writeBoolean(true)
+            boolean(true)
             long(value)
         }
     }
 
     fun byteOrNull(value: Byte?) {
         if (value === null) {
-            writeBoolean(false)
+            boolean(false)
         } else {
-            writeBoolean(true)
+            boolean(true)
             byte(value)
         }
     }
