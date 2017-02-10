@@ -14,9 +14,9 @@ buildscript {
     }
 }
 
-rootProject.name = 'web-os-lib'
-include ":jscore";
+rootProject.name = 'io'
 
 include ":io:client"
 include ":io:server"
 include ":io:shared"
+include ":io:shared-js"

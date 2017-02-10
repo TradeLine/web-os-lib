@@ -18,8 +18,8 @@ publishing {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-js-library:$kotlin_version"
-    compile project(":io:shared")
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile project(":io:shared-js")
 }
 
 def out = "${buildDir}/classes/main"
@@ -31,7 +31,7 @@ compileKotlin2Js {
     kotlinOptions.metaInfo = true
 }
 
-evaluationDependsOn(':io:shared')
+evaluationDependsOn(':io:shared-js')
 /*
 task copyKotlinJs(type: Copy) {
     with {

@@ -1,7 +1,5 @@
 package org.tlsys.io
 
-import java.util.*
-
 interface DTO {
     val DTO_ID: Int
 }

@@ -1,0 +1,29 @@
+apply plugin: "kotlin2js"
+apply plugin: 'maven-publish'
+
+def osName = System.getProperty("os.name").toLowerCase()
+if (!file("${projectDir}/src").exists()) {
+    def from = "${project("${project.parent.path}:shared").projectDir}/src"
+    def to = "${project.projectDir}/src"
+    if (osName == "linux") {
+        exec {
+            commandLine 'ln', '-s', from, to
+        }
+    } else throw new RuntimeException("Unknown os $osName. Please, write code for create symble link from $from to $to")
+}
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+}
+
+def out = "${buildDir}/classes/main"
+//compileKotlin2Js.kotlinOptions.sourceMap = true
+compileKotlin2Js {
+    kotlinOptions.outputFile = "${out}/io-shared.js"
+    kotlinOptions.suppressWarnings = true
+    kotlinOptions.verbose = true
+    kotlinOptions.metaInfo = true
+}
+
+jar {
+    dependsOn compileKotlin2Js
+}

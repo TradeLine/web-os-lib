@@ -6,10 +6,10 @@ private val package_name = "org.tlsys.io"
 class StringDTO(var value: String) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = StringDTO(reader.readString())
+        override fun read(reader: Reader): DTO = StringDTO(reader.string())
 
         override fun write(obj: DTO, writer: Writer) {
-            writer.writeString((obj as StringDTO).value)
+            writer.string((obj as StringDTO).value)
         }
 
         override val DTO_ID: Int = Objects.calcId("$package_name.StringDTO")
@@ -38,10 +38,10 @@ class BooleanDTO(val value: Boolean) : DTO {
 class CharDTO(val value: Char) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = CharDTO(reader.readChar())
+        override fun read(reader: Reader): DTO = CharDTO(reader.char())
 
         override fun write(obj: DTO, writer: Writer) {
-            writer.writeChar((obj as CharDTO).value)
+            writer.char((obj as CharDTO).value)
         }
 
         override var DTO_ID: Int = Objects.calcId("$package_name.CharDTO")
@@ -54,11 +54,11 @@ class CharDTO(val value: Char) : DTO {
 class ByteDTO(val value: Byte) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = ByteDTO((reader.read() - 127).toByte())
+        override fun read(reader: Reader): DTO = ByteDTO((reader.byte()).toByte())
 
         override fun write(obj: DTO, writer: Writer) {
 
-            writer.write((obj as ByteDTO).value + 127)
+            writer.byte((obj as ByteDTO).value)
         }
 
         override val DTO_ID: Int = Objects.calcId("$package_name.ByteDTO")
@@ -71,10 +71,10 @@ class ByteDTO(val value: Byte) : DTO {
 class ShortDTO(val value: Short) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = ShortDTO(reader.readShort())
+        override fun read(reader: Reader): DTO = ShortDTO(reader.short())
 
         override fun write(obj: DTO, writer: Writer) {
-            writer.writeShort((obj as ShortDTO).value)
+            writer.short((obj as ShortDTO).value)
         }
 
         override val DTO_ID: Int = Objects.calcId("$package_name.ShortDTO")
@@ -87,10 +87,10 @@ class ShortDTO(val value: Short) : DTO {
 class IntDTO(val value: Int) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = IntDTO(reader.readInt())
+        override fun read(reader: Reader): DTO = IntDTO(reader.int())
 
         override fun write(obj: DTO, writer: Writer) {
-            writer.writeInt((obj as IntDTO).value)
+            writer.int((obj as IntDTO).value)
         }
 
         override val DTO_ID: Int = Objects.calcId("$package_name.IntDTO")
@@ -109,10 +109,10 @@ class IntDTO(val value: Int) : DTO {
 class LongDTO(var value: Long) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = LongDTO(reader.readLong())
+        override fun read(reader: Reader): DTO = LongDTO(reader.long())
 
         override fun write(obj: DTO, writer: Writer) {
-            writer.writeLong((obj as LongDTO).value)
+            writer.long((obj as LongDTO).value)
         }
 
         override val DTO_ID: Int = Objects.calcId("$package_name.LongDTO")
@@ -130,10 +130,10 @@ class LongDTO(var value: Long) : DTO {
 class FloatDTO(var value: Float) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = FloatDTO(reader.readFloat())
+        override fun read(reader: Reader): DTO = FloatDTO(reader.float())
 
         override fun write(obj: DTO, writer: Writer) {
-            writer.writeFloat((obj as FloatDTO).value)
+            writer.float((obj as FloatDTO).value)
         }
 
         override val DTO_ID: Int = Objects.calcId("$package_name.FloatDTO")
@@ -146,10 +146,10 @@ class FloatDTO(var value: Float) : DTO {
 class DoubleDTO(var value: Double) : DTO {
 
     internal companion object FACTORE : DTOFactory {
-        override fun read(reader: Reader): DTO = DoubleDTO(reader.readDouble())
+        override fun read(reader: Reader): DTO = DoubleDTO(reader.double())
 
         override fun write(obj: DTO, writer: Writer) {
-            writer.writeDouble((obj as DoubleDTO).value)
+            writer.double((obj as DoubleDTO).value)
         }
 
         override val DTO_ID: Int = Objects.calcId("$package_name.DoubleDTO")
@@ -173,14 +173,14 @@ class ListDTO<T : DTO> : DTO, Iterable<T> {
     }
 
     constructor(size: Int, f: (Int) -> T) {
-        val l = java.util.ArrayList<T>(size)
+        val l = ArrayList<T>(size)
         for (i in 0..size - 1)
             l.add(f(i))
         this.values = l
     }
 
     constructor(values: Array<T>) {
-        val l = java.util.ArrayList<T>(values.size)
+        val l = ArrayList<T>(values.size)
         for (i in 0..values.size - 1)
             l.add(values[i])
         this.values = l

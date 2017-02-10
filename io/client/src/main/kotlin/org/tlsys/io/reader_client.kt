@@ -6,28 +6,23 @@ import org.khronos.webgl.Int32Array
 
 class JSReader : Reader {
     private companion object {
-        fun bytesToString(data: ByteArray): String {
-            var out = ""
-            for (i in 0..data.size - 1) {
-                out += (data[i].toInt() + 127).toChar()
-            }
-            return out
-        }
+        fun fromBase64(data: String): JSReader = JSReader((js("atob")(data)))
     }
 
-    private val body: String
+    private val body: ByteArray
 
-    constructor(data: ByteArray) : this(bytesToString(data))
-
-    constructor(body: String) {
-        this.body = body
+    constructor(data: ByteArray) {
+        this.body = data
     }
 
+    /*
     override val cursor: Int
         get() = _cursor
+    */
 
-    override fun readChar(): Char = read().toChar()
+    //override fun readChar(): Char = read().toChar()
 
+    /*
     override fun readShort(): Short {
         val ch1 = read()
         val ch2 = read()
@@ -35,10 +30,11 @@ class JSReader : Reader {
             throw RuntimeException("EOFException");
         return ((ch1 shl 8) + (ch2 shl 0)).toShort();
     }
+    */
 
-    override fun readDouble(): Double {
-        val v2 = readInt().toLong() and 0xFFFFFFFF
-        val v1 = readInt().toLong() and 0xFFFFFFFF
+    override fun double(): Double {
+        val v2 = int().toLong() and 0xFFFFFFFF
+        val v1 = int().toLong() and 0xFFFFFFFF
 //val r = (v1.toLong() shl 24) + v2
         val i = Int32Array(2)
         i.asDynamic()[0] = v1
@@ -50,6 +46,7 @@ class JSReader : Reader {
         //return js("f[0]")
     }
 
+    /*
     override fun readLong(): Long {
         val v0 = read()
         val v1 = read()
@@ -69,20 +66,18 @@ class JSReader : Reader {
                 ((v6 and 255) shl 8) +
                 ((v7 and 255) shl 0))
     }
+*/
+    private var _cursor = 0
 
-    private var _cursor = 0;
-    override fun readFloat(): Float {
+    override fun float(): Float {
         val iArray = Int32Array(1)
-        iArray.asDynamic()[0] = readInt()
+        iArray.asDynamic()[0] = int()
         val fArray = Float32Array(iArray.buffer)
         return fArray.asDynamic()[0]
     }
 
-    override fun read(): Int {
-        val o = body[_cursor++].toInt()
-        return o
-    }
-
+    override fun read(): Byte = body[_cursor++]
+/*
     override fun readInt(): Int {
         val ch1 = read().toInt();
         val ch2 = read().toInt();
@@ -93,8 +88,10 @@ class JSReader : Reader {
         return ((ch1 shl 24) + (ch2 shl 16) + (ch3 shl 8) + (ch4 shl 0));
     }
 
+
     override fun readObject(): DTO? {
         val g = super.readObject()
         return g
     }
+    */
 }

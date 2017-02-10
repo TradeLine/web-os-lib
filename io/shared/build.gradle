@@ -1,4 +1,3 @@
-apply plugin: "kotlin2js"
 apply plugin: "kotlin"
 apply plugin: 'maven-publish'
 
@@ -14,24 +13,12 @@ publishing {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-js-library:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
-def out = "${buildDir}/classes/main"
-//compileKotlin2Js.kotlinOptions.sourceMap = true
-compileKotlin2Js {
-    kotlinOptions.outputFile = "${out}/io-shared.js"
-    kotlinOptions.suppressWarnings = true
-    kotlinOptions.verbose = true
-    kotlinOptions.metaInfo = true
-}
-
-compileKotlin {
-    dependsOn compileKotlin2Js
-}
 
 jar {
-    dependsOn compileKotlin
+    //dependsOn compileKotlin
     //from "${project.buildDir}/classes/main"
     //include "**/*.class"
 
