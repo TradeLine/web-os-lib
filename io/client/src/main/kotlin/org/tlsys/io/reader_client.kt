@@ -7,6 +7,10 @@ import org.khronos.webgl.Int32Array
 class JSReader : Reader {
     companion object {
         fun fromBase64(data: String): JSReader = JSReader((js("atob")(data)))
+        fun fromBinaryString(str: String) =
+                JSReader(ByteArray(str.length) {
+                    str[it].toByte()
+                })
     }
 
     private val body: ByteArray

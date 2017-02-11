@@ -51,6 +51,14 @@ abstract class Writer {
 
     abstract fun toByteArray(): ByteArray
 
+    fun toBinaryString(): String {
+        var sb = StringBuilder()
+        for (c in toByteArray()) {
+            sb.append(c.toChar())
+        }
+        return sb.toString()
+    }
+
     fun <T : DTO> writeList(list: List<T?>) {
         int(list.size)
         for (it in list)
