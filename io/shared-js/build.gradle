@@ -1,18 +1,31 @@
 apply plugin: "kotlin2js"
 apply plugin: 'maven-publish'
 
+task deleteGraphicsAssets(type: Delete) {
+    delete "src"
+}
+
+task copyShared(type: Copy) {
+    dependsOn deleteGraphicsAssets
+    def s = "/src/main/kotlin/org"
+    from("${project("${project.parent.path}:shared").projectDir}${s}")
+    into("${project.projectDir}${s}")
+    include('**/*.kt')
+}
+/*
 def osName = System.getProperty("os.name").toLowerCase()
-def s = "/src/main/kotlin/org"
+
 if (!file("${projectDir}${s}").exists()) {
     file("${projectDir}${s}").mkdirs()
-    def from = "${project("${project.parent.path}:shared").projectDir}${s}"
-    def to = "${project.projectDir}${s}"
+    def from =
+    def to =
     if (osName == "linux" || osName == "mac os x") {
         exec {
             commandLine 'ln', '-s', from, to
         }
     } else throw new RuntimeException("Unknown os $osName. Please, write code for create symble link from $from to $to")
 }
+*/
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
 }
@@ -20,6 +33,7 @@ dependencies {
 def out = "${buildDir}/classes/main"
 //compileKotlin2Js.kotlinOptions.sourceMap = true
 compileKotlin2Js {
+    dependsOn copyShared
     kotlinOptions.outputFile = "${out}/io-shared.js"
     kotlinOptions.suppressWarnings = true
     kotlinOptions.verbose = true
