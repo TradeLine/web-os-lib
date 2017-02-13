@@ -1,13 +1,20 @@
 apply plugin: "kotlin2js"
 apply plugin: 'maven-publish'
 
+def s = "/src/main/kotlin"
+
 task deleteGraphicsAssets(type: Delete) {
-    delete "src"
+    def trueFiles = fileTree("${project("${project.parent.path}:shared").projectDir}${s}")
+    trueFiles.each {
+        def file = it.absolutePath.substring("${project("${project.parent.path}:shared").projectDir}${s}".length())
+        def nFile = new File("${project.projectDir}${s}$file")
+        if (nFile.exists() && it.lastModified() > nFile.lastModified())
+            delete nFile
+    }
 }
 
 task copyShared(type: Copy) {
     dependsOn deleteGraphicsAssets
-    def s = "/src/main/kotlin/org"
     from("${project("${project.parent.path}:shared").projectDir}${s}")
     into("${project.projectDir}${s}")
     include('**/*.kt')
