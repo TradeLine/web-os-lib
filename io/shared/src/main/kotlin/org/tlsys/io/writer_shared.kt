@@ -53,9 +53,13 @@ abstract class Writer {
 
     fun toBinaryString(): String {
         var sb = StringBuilder()
+        //var i = 0
+        //println("===WRITE DATA===")
         for (c in toByteArray()) {
+            //println("${i++}=>$c")
             sb.append(c.toChar())
         }
+        //println("===WRITE DATA===")
         return sb.toString()
     }
 
@@ -125,6 +129,15 @@ abstract class Writer {
         } else {
             boolean(true)
             byte(value)
+        }
+    }
+
+    fun booleanOrNull(value: Boolean?) {
+        if (value !== null) {
+            boolean(true)
+            boolean(value)
+        } else {
+            boolean(false)
         }
     }
 }

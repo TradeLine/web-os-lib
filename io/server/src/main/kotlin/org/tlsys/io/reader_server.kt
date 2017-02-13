@@ -6,10 +6,17 @@ class JReader : org.tlsys.io.Reader {
 
     companion object {
         fun fromBase64(str: String) = JReader(java.util.Base64.getDecoder().decode(str))
-        fun fromBinaryString(str: String) =
-                JReader(ByteArray(str.length) {
-                    str[it].toByte()
-                })
+        fun fromBinaryString(str: String):JReader {
+            //println("===READ DATA===")
+            //var i = 0
+            val r = JReader(ByteArray(str.length) {
+                val d =str[it].toByte()
+                //println("${i++}=>$d")
+                d
+            })
+            //println("===READ DATA===")
+            return r
+        }
     }
 
     constructor(bytes: ByteArray) {

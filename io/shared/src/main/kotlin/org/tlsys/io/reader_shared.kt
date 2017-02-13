@@ -18,25 +18,27 @@ abstract class Reader {
     }
 
     fun int(): Int {
-        val ch1 = read().toInt()
-        val ch2 = read().toInt()
-        val ch3 = read().toInt()
-        val ch4 = read().toInt()
+        val ch1 = read().toInt() and 0xFF
+        val ch2 = read().toInt() and 0xFF
+        val ch3 = read().toInt() and 0xFF
+        val ch4 = read().toInt() and 0xFF
+
         if ((ch1 or ch2 or ch3 or ch4) < 0)
             throw RuntimeException("EOF")
-        return ((ch1 shl 24) + (ch2 shl 16) + (ch3 shl 8) + (ch4 shl 0));
+        val out = ((ch1 shl 24) + (ch2 shl 16) + (ch3 shl 8) + (ch4 shl 0))
+        return out
     }
 
     abstract fun float(): Float
     fun long(): Long {
-        val v0 = read().toInt()
-        val v1 = read().toInt()
-        val v2 = read().toInt()
-        val v3 = read().toInt()
-        val v4 = read().toInt()
-        val v5 = read().toInt()
-        val v6 = read().toInt()
-        val v7 = read().toInt()
+        val v0 = read().toInt() and 0xFF
+        val v1 = read().toInt() and 0xFF
+        val v2 = read().toInt() and 0xFF
+        val v3 = read().toInt() and 0xFF
+        val v4 = read().toInt() and 0xFF
+        val v5 = read().toInt() and 0xFF
+        val v6 = read().toInt() and 0xFF
+        val v7 = read().toInt() and 0xFF
 
         return ((v0.toLong() shl 56) +
                 ((v1 and 255).toLong() shl 48) +
@@ -84,6 +86,15 @@ abstract class Reader {
     fun floatOrNull() = if (boolean()) float() else null
     fun longOrNull() = if (boolean()) long() else null
     fun byteOrNull() = if (boolean()) byte() else null
+
+    fun booleanOrNull(): Boolean? {
+        if (boolean())
+            return boolean()
+        else
+            return null
+    }
+
+
 }
 
 class DTOFactoryNotFound constructor(val id: Int) : RuntimeException("DTO with ID $id not found!")

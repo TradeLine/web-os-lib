@@ -52,9 +52,11 @@ class ByteTest {
         writer {
             int(10)
             long(Long.MAX_VALUE)
+            string("Русский текст")
             reader {
                 assertEquals(int(), 10)
                 assertEquals(long(), Long.MAX_VALUE)
+                assertEquals(string(), "Русский текст")
             }
         }
         val TEXT = "Текст на русском языке"
@@ -73,6 +75,6 @@ private fun writer(f: JWriter.() -> Unit) {
 }
 
 private fun JWriter.reader(f: JReader.() -> Unit) {
-    val r = JReader(this.toByteArray())
+    val r = JReader.fromBinaryString(this.toBinaryString())
     r.f()
 }
