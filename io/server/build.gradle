@@ -20,6 +20,11 @@ publishing {
             from components.java
         }
     }
+    repositories {
+        maven {
+            url "/var/repo"
+        }
+    }
 }
 
 dependencies {
