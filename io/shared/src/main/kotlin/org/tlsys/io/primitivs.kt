@@ -245,6 +245,6 @@ fun Array<IntDTO>.fromDTO() = Array(size) {
 }
 
 fun ByteArray.toDTO() = ListDTO(size) { ByteDTO(this[it]) }
-fun ListDTO<ByteDTO>.toTypedArray() = Array(size) {
+fun ListDTO<ByteDTO>.toTypedArray() = ByteArray(size) {
     values[it].value
 }
