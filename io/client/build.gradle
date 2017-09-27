@@ -1,4 +1,4 @@
-apply plugin: "kotlin2js"
+apply plugin: 'kotlin-platform-js'
 apply plugin: 'maven-publish'
 
 repositories {
@@ -7,7 +7,10 @@ repositories {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
 }
 
-
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
 
 publishing {
     publications {
@@ -16,9 +19,10 @@ publishing {
             artifactId 'tl-io-client'
             version "1.0"
             from components.java
+            artifact sourcesJar
             pom.withXml {
                 asNode().dependencies.'*'.findAll() {
-                    if (it.groupId.text() == "io.io" && it.artifactId.text() == "shared-js") {
+                    if (it.groupId.text() == "io.io" && it.artifactId.text() == "shared") {
                         it.parent().remove(it)
                     }
                     //println(">>>>"+it.groupId.text()+"   " + it.artifactId.text())
@@ -35,7 +39,7 @@ publishing {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile project(":io:shared-js")
+    implement project(":io:shared")
 }
 
 def out = "${buildDir}/classes/main"
@@ -47,7 +51,7 @@ compileKotlin2Js {
     kotlinOptions.metaInfo = true
 }
 
-evaluationDependsOn(':io:shared-js')
+//evaluationDependsOn(':io:shared-js')
 /*
 task copyKotlinJs(type: Copy) {
     with {

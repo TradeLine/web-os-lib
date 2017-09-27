@@ -1,35 +1,19 @@
 package org.tlsys.io
 
 
-class JReader : org.tlsys.io.Reader {
-    private val body: ByteArray
+class JReader(bytes: ByteArray) : org.tlsys.io.Reader() {
+    private val body: ByteArray = bytes
 
     companion object {
         fun fromBase64(str: String) = JReader(java.util.Base64.getDecoder().decode(str))
         fun fromBinaryString(str: String):JReader {
-            //println("===READ DATA===")
-            //var i = 0
             val r = JReader(ByteArray(str.length) {
                 val d =str[it].toByte()
-                //println("${i++}=>$d")
                 d
             })
-            //println("===READ DATA===")
             return r
         }
     }
-
-    constructor(bytes: ByteArray) {
-        body = bytes
-    }
-
-    /*
-    constructor(body: String) {
-        TODO()
-
-        //this.body = body
-    }
-    */
 
     override fun double(): Double {
         val v1 = int().toLong() and 0xFFFFFFFF shl 32

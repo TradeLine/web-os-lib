@@ -2,8 +2,7 @@ package org.tlsys.io
 
 abstract class Reader {
 
-    companion object {
-    }
+    companion object
 
     fun boolean() = read().toInt() == 42
     abstract fun read(): Byte
@@ -54,7 +53,7 @@ abstract class Reader {
     fun string(): String {
         val sb = StringBuilder()
         val size = int()
-        for (i in 0..size - 1) {
+        for (i in 0 until size) {
             sb.append(char())
         }
         return sb.toString()
@@ -74,7 +73,7 @@ abstract class Reader {
     fun <T : DTO> readList(): List<T> {
         val size = int()
         val out = ArrayList<T>(size)
-        for (f in 0..size - 1) {
+        for (f in 0 until size) {
             out.add(obj() as T)
         }
 
@@ -87,12 +86,7 @@ abstract class Reader {
     fun longOrNull() = if (boolean()) long() else null
     fun byteOrNull() = if (boolean()) byte() else null
 
-    fun booleanOrNull(): Boolean? {
-        if (boolean())
-            return boolean()
-        else
-            return null
-    }
+    fun booleanOrNull(): Boolean? = if (boolean()) boolean() else null
 
 
 }

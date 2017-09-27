@@ -2,13 +2,8 @@ package org.tlsys.io
 
 import java.io.ByteArrayOutputStream
 
-class JWriter : org.tlsys.io.Writer {
-    val data = ByteArrayOutputStream()
-
-    constructor(work: ((JWriter) -> Unit)? = null) {
-        if (work != null)
-            work(this)
-    }
+class JWriter(work: ((JWriter) -> Unit)? = null) : org.tlsys.io.Writer() {
+    private val data = ByteArrayOutputStream()
 
     override fun toByteArray() = data.toByteArray()!!
 
@@ -34,6 +29,11 @@ class JWriter : org.tlsys.io.Writer {
         } catch(e: Throwable) {
             throw RuntimeException("Can't write ${obj?.javaClass?.name}", e)
         }
+    }
+
+    init {
+        if (work != null)
+            work(this)
     }
 }
 

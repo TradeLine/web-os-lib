@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.0-dev-6881'
+    ext.kotlin_version = '1.1.50'
 
     repositories {
         mavenCentral()
@@ -17,4 +17,4 @@ rootProject.name = 'io'
 include ":io:client"
 include ":io:server"
 include ":io:shared"
-include ":io:shared-js"
+//include ":io:shared-js"

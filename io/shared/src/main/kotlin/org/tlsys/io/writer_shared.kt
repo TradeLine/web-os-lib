@@ -83,7 +83,7 @@ abstract class Writer {
 
     fun string(str: String) {
         int(str.length)
-        for (i in 0..str.length - 1)
+        for (i in 0 until str.length)
             char(str[i])
     }
 
