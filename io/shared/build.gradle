@@ -1,21 +1,21 @@
 apply plugin: 'kotlin-platform-common'
-//apply plugin: 'maven-publish'
-//
-//publishing {
-//    publications {
-//        maven(MavenPublication) {
-//            groupId "org.tlsys"
-//            artifactId 'tl-io-shared'
-//            version "1.0"
-//            from components.java
-//        }
-//    }
-//    repositories {
-//        maven {
-//            url "/var/repo"
-//        }
-//    }
-//}
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId "org.tlsys"
+            artifactId 'tl-io-shared'
+            version "1.0"
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "/var/repo"
+        }
+    }
+}
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
