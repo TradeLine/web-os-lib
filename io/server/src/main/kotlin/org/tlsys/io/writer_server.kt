@@ -26,7 +26,8 @@ class JWriter(work: ((JWriter) -> Unit)? = null) : org.tlsys.io.Writer() {
     override fun obj(obj: DTO?) {
         try {
             super.obj(obj)
-        } catch(e: Throwable) {
+        } catch (e: Throwable) {
+            e.printStackTrace()
             throw RuntimeException("Can't write ${obj?.javaClass?.name}", e)
         }
     }
