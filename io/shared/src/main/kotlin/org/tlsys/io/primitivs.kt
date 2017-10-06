@@ -247,20 +247,20 @@ fun ListDTO<ByteDTO>.toTypedArray() = ByteArray(size) {
     values[it].value
 }
 
-val Long.dto: LongDTO
-    get() = LongDTO(this)
+val Long?.dto: LongDTO?
+    get() = if (this == null) null else LongDTO(this)
 
-val Float.dto: FloatDTO
-    get() = FloatDTO(this)
+val Float?.dto: FloatDTO?
+    get() = if (this == null) null else FloatDTO(this)
 
-val Int.dto: IntDTO
-    get() = IntDTO(this)
+val Int?.dto: IntDTO?
+    get() = if (this == null) null else IntDTO(this)
 
-val String.dto: StringDTO
-    get() = StringDTO(this)
+val String?.dto: StringDTO?
+    get() = if (this == null) null else StringDTO(this)
 
-val Boolean.dto: BooleanDTO
-    get() = BooleanDTO(this)
+val Boolean?.dto: BooleanDTO?
+    get() = if (this == null) null else BooleanDTO(this)
 
-val <T : DTO> List<T>.dto: ListDTO<T>
-    get() = ListDTO(this)
+val <T : DTO> List<T>?.dto: ListDTO<T>?
+    get() = if (this == null) null else ListDTO(this)
