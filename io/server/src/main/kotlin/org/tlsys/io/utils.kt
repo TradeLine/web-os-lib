@@ -6,7 +6,7 @@ fun DTO?.asByteArray(): ByteArray {
     return w.toByteArray()
 }
 
-fun <T:DTO> ByteArray.asDTO(): T {
+fun <T:DTO> ByteArray.asDTO(): T? {
     val r = JReader(this)
-    return r.obj() as T
+    return r.obj() as T?
 }
