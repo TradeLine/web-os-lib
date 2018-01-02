@@ -42,6 +42,6 @@ publishing {
 
 dependencies {
     testCompile 'junit:junit:4.8.2'
-    implement(project(":io:common"))
+    expectedBy project(":io:common")
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
