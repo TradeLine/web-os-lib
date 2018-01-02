@@ -5,7 +5,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId "org.tlsys"
-            artifactId 'tl-io-shared'
+            artifactId 'tl-io-common'
             version "1.0"
             from components.java
         }
