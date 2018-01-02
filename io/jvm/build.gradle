@@ -4,7 +4,6 @@ import java.nio.file.StandardCopyOption;
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
 }
 
 apply plugin: 'kotlin-platform-jvm'
@@ -20,13 +19,13 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId "org.tlsys"
-            artifactId 'tl-io-server'
+            artifactId 'tl-io-jvm'
             version "1.0"
             from components.java
             artifact sourcesJar
             pom.withXml {
                 asNode().dependencies.'*'.findAll() {
-                    if (it.groupId.text() == "io.io" && it.artifactId.text() == "shared") {
+                    if (it.groupId.text() == "io.io" && it.artifactId.text() == "common") {
                         it.parent().remove(it)
                     }
                     //println(">>>>"+it.groupId.text()+"   " + it.artifactId.text())

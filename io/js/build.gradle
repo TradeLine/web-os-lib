@@ -4,7 +4,6 @@ apply plugin: 'maven-publish'
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
 }
 
 task sourcesJar(type: Jar) {
@@ -16,13 +15,13 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId "org.tlsys"
-            artifactId 'tl-io-client'
+            artifactId 'tl-io-js'
             version "1.0"
             from components.java
             artifact sourcesJar
             pom.withXml {
                 asNode().dependencies.'*'.findAll() {
-                    if (it.groupId.text() == "io.io" && it.artifactId.text() == "shared") {
+                    if (it.groupId.text() == "io.io" && it.artifactId.text() == "common") {
                         it.parent().remove(it)
                     }
                     //println(">>>>"+it.groupId.text()+"   " + it.artifactId.text())
@@ -39,13 +38,13 @@ publishing {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    implement project(":io:shared")
+    implement project(":io:common")
 }
 
 def out = "${buildDir}/classes/main"
 compileKotlin2Js {
     kotlinOptions.sourceMap = true
-    kotlinOptions.outputFile = "${out}/io-client.js"
+    kotlinOptions.outputFile = "${out}/io-js.js"
     kotlinOptions.suppressWarnings = true
     kotlinOptions.verbose = true
     kotlinOptions.metaInfo = true
