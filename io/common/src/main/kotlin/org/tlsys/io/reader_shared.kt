@@ -70,6 +70,10 @@ abstract class Reader {
         }
     }
 
+    fun byteArray() = Array(int()) {
+        byte()
+    }
+
     fun <T : DTO> readList(): List<T> {
         val size = int()
         val out = ArrayList<T>(size)

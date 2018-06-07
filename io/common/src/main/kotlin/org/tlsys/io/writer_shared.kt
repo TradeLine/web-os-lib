@@ -44,7 +44,8 @@ abstract class Writer {
         } else {
             boolean(true)
             int(obj.DTO_ID)
-            val factory = Objects.getFactoryById(obj.DTO_ID) ?: throw RuntimeException("Can't find factory for ${obj.DTO_ID}")
+            val factory = Objects.getFactoryById(obj.DTO_ID)
+                    ?: throw RuntimeException("Can't find factory for ${obj.DTO_ID}")
             factory.write(obj, this)
         }
     }
@@ -79,6 +80,13 @@ abstract class Writer {
         int(list.size)
         for (it in list)
             obj(it)
+    }
+
+    fun byteArray(array: ByteArray) {
+        int(array.size)
+        array.forEach {
+            byte(it)
+        }
     }
 
     fun string(str: String) {
